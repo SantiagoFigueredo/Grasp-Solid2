@@ -4,8 +4,7 @@
 // </copyright>
 //-------------------------------------------------------------------------
 
-using System;
-using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using Full_GRASP_And_SOLID.Library;
 
@@ -13,9 +12,9 @@ namespace Full_GRASP_And_SOLID
 {
     public class Program
     {
-        private static ArrayList productCatalog = new ArrayList();
+        private static List<Product> productCatalog = new List<Product>();
 
-        private static ArrayList equipmentCatalog = new ArrayList();
+        private static List<Equipment> equipmentCatalog = new List<Equipment>();
 
         public static void Main(string[] args)
         {
@@ -25,7 +24,9 @@ namespace Full_GRASP_And_SOLID
             recipe.FinalProduct = GetProduct("Café con leche");
             recipe.AddStep(new Step(GetProduct("Café"), 100, GetEquipment("Cafetera"), 120));
             recipe.AddStep(new Step(GetProduct("Leche"), 200, GetEquipment("Hervidor"), 60));
-            recipe.PrintRecipe();
+
+            IPrinter printer = new ConsolePrinter();
+            printer.PrintRecipe(recipe);
         }
 
         private static void PopulateCatalogs()
@@ -50,24 +51,23 @@ namespace Full_GRASP_And_SOLID
 
         private static Product ProductAt(int index)
         {
-            return productCatalog[index] as Product;
+            return productCatalog[index];
         }
 
         private static Equipment EquipmentAt(int index)
         {
-            return equipmentCatalog[index] as Equipment;
+            return equipmentCatalog[index];
         }
 
         private static Product GetProduct(string description)
         {
-            var query = from Product product in productCatalog where product.Description == description select product;
-            return query.FirstOrDefault();
+            return productCatalog.FirstOrDefault(p => p.Description == description);
         }
 
         private static Equipment GetEquipment(string description)
         {
-            var query = from Equipment equipment in equipmentCatalog where equipment.Description == description select equipment;
-            return query.FirstOrDefault();
+            return equipmentCatalog.FirstOrDefault(e => e.Description == description);
         }
     }
 }
+
