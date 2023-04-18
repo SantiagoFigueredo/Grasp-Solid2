@@ -15,3 +15,8 @@ namespace Full_GRASP_And_SOLID.Library
         }
     }
 }
+/* El patrón o principio utilizado en este cambio es el principio de Responsabilidad Única (SRP), 
+que establece que una clase debe tener una única responsabilidad y motivo para cambiar. 
+Al implementar una clase ConsolePrinter separada, se está cumpliendo con este principio, 
+ya que ahora la clase Recipe tiene una única responsabilidad de representar la receta y 
+no tiene que preocuparse por cómo se imprime.*/
